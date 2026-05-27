@@ -1,72 +1,75 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState } from "react";
 
 export default function AuditPage() {
 
-  const router = useRouter()
+const [tool, setTool] = useState("");
+const [plan, setPlan] = useState("");
+const [spend, setSpend] = useState("");
 
-  const [tool, setTool] = useState("")
-  const [plan, setPlan] = useState("")
-  const [spend, setSpend] = useState("")
+return (
 
-  function handleSubmit(e: any) {
-    e.preventDefault()
+<main className="min-h-screen bg-black text-white p-10">
+  <h1 className="text-5xl font-bold mb-10">AI Spend Audit</h1>
 
-    localStorage.setItem(
-      "audit",
-      JSON.stringify({
-        tool,
-        plan,
-        spend,
-      })
-    )
+  <div className="flex flex-col gap-4 max-w-xl">
 
-    router.push("/results")
-  }
+    <select
+      className="p-3 rounded bg-white text-black"
+      onChange={(e) => setTool(e.target.value)}
+    >
+      <option>Select Tool</option>
+      <option>ChatGPT</option>
+      <option>Claude</option>
+      <option>Cursor</option>
+      <option>Copilot</option>
+      <option>Gemini</option>
+      <option>OpenAI API</option>
+      <option>Anthropic API</option>
+      <option>Windsurf</option>
+    </select>
 
-  return (
-    <main className="min-h-screen bg-black text-white p-8">
+    <input
+      placeholder="Plan"
+      className="p-3 rounded bg-white text-black"
+      onChange={(e) => setPlan(e.target.value)}
+    />
 
-      <h1 className="text-5xl font-bold mb-8">
-        AI Spend Audit
-      </h1>
+    <input
+      placeholder="Monthly Spend"
+      type="number"
+      className="p-3 rounded bg-white text-black"
+      onChange={(e) => setSpend(e.target.value)}
+    />
 
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-md flex flex-col gap-4"
-      >
+    <input
+      placeholder="Number of Seats"
+      type="number"
+      className="p-3 rounded bg-white text-black"
+      onChange={(e) => setSeats(e.target.value)}
+    />
 
-        <select
-          className="p-3 rounded bg-white text-black w-full"
-          onChange={(e) => setTool(e.target.value)}
-        >
-          <option>Select Tool</option>
-          <option>ChatGPT</option>
-          <option>Claude</option>
-          <option>Cursor</option>
-          <option>Copilot</option>
-        </select>
+    <input
+      placeholder="Team Size"
+      type="number"
+      className="p-3 rounded bg-white text-black"
+      onChange={(e) => setTeamSize(e.target.value)}
+    />
 
-        <input
-          placeholder="Plan"
-          className="p-3 rounded bg-white text-black w-full"
-          onChange={(e) => setPlan(e.target.value)}
-        />
+    <textarea
+      placeholder="Use Case"
+      className="p-3 rounded bg-white text-black"
+      onChange={(e) => setUseCase(e.target.value)}
+    />
 
-        <input
-          placeholder="Monthly Spend"
-          className="p-3 rounded bg-white text-black w-full"
-          onChange={(e) => setSpend(e.target.value)}
-        />
+    <button
+      className="bg-white text-black p-3 rounded-xl font-semibold"
+    >
+      Generate Audit
+    </button>
 
-        <button className="bg-white text-black p-3 rounded-xl font-semibold">
-          Generate Audit
-        </button>
-
-      </form>
-
-    </main>
-  )
+  </div>
+</main>
+)
 }
